@@ -4,6 +4,36 @@
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
+        <mxCell id="oy7Qhf_uvoBhMOYlaqBT-1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="" vertex="1">
+          <mxGeometry height="370" width="230" x="150" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="oy7Qhf_uvoBhMOYlaqBT-2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="" vertex="1">
+          <mxGeometry height="370" width="230" x="650" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="oy7Qhf_uvoBhMOYlaqBT-4" edge="1" parent="1" source="oy7Qhf_uvoBhMOYlaqBT-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=classic;startFill=1;" target="oy7Qhf_uvoBhMOYlaqBT-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="oy7Qhf_uvoBhMOYlaqBT-5" edge="1" parent="1" source="oy7Qhf_uvoBhMOYlaqBT-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;startArrow=classic;startFill=1;" target="oy7Qhf_uvoBhMOYlaqBT-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="oy7Qhf_uvoBhMOYlaqBT-3" parent="1" style="image;html=1;image=img/lib/clip_art/networking/Router_128x128.png" value="" vertex="1">
+          <mxGeometry height="80" width="80" x="470" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="oy7Qhf_uvoBhMOYlaqBT-6" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="192.168.1.0&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;/24&lt;/span&gt;" vertex="1">
+          <mxGeometry height="30" width="60" x="480" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="oy7Qhf_uvoBhMOYlaqBT-10" parent="1" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;&lt;font&gt;Laptop&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255)); font-family: &amp;quot;Segoe UI&amp;quot;;&quot;&gt;(Node 1)&lt;/span&gt;&lt;/font&gt;&lt;/h1&gt;&lt;div&gt;&lt;div style=&quot;font-family: &amp;quot;Segoe UI&amp;quot;; line-height: 20px;&quot;&gt;&lt;ul style=&quot;&quot;&gt;&lt;li&gt;pfSense&lt;/li&gt;&lt;li style=&quot;font-size: 14px;&quot;&gt;HAProxy&lt;/li&gt;&lt;li style=&quot;font-size: 14px;&quot;&gt;Web1&lt;/li&gt;&lt;li style=&quot;font-size: 14px;&quot;&gt;Workstation1&lt;/li&gt;&lt;li style=&quot;font-size: 14px;&quot;&gt;&lt;div style=&quot;line-height: 20px;&quot;&gt;Laptop Proxmox → 10.0.10.10&lt;/div&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="210" width="185" x="175" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="oy7Qhf_uvoBhMOYlaqBT-11" parent="1" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;P&lt;font&gt;C&lt;span style=&quot;font-family: &amp;quot;Segoe UI&amp;quot;; background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;(Node 2)&lt;/span&gt;&lt;/font&gt;&lt;/h1&gt;&lt;div&gt;&lt;div style=&quot;font-family: &amp;quot;Segoe UI&amp;quot;; font-size: 14px; line-height: 20px;&quot;&gt;&lt;ul&gt;&lt;li&gt;&lt;div style=&quot;line-height: 20px;&quot;&gt;AD / DNS&lt;/div&gt;&lt;/li&gt;&lt;li&gt;&lt;div style=&quot;line-height: 20px;&quot;&gt;File Server&lt;/div&gt;&lt;/li&gt;&lt;li&gt;&lt;div style=&quot;line-height: 20px;&quot;&gt;DB1 + DB2&lt;/div&gt;&lt;/li&gt;&lt;li&gt;&lt;div style=&quot;line-height: 20px;&quot;&gt;Redis&lt;/div&gt;&lt;/li&gt;&lt;li&gt;&lt;div style=&quot;line-height: 20px;&quot;&gt;Web2&lt;/div&gt;&lt;/li&gt;&lt;li&gt;&lt;div style=&quot;line-height: 20px;&quot;&gt;Workstation2&lt;/div&gt;&lt;/li&gt;&lt;li&gt;&lt;div style=&quot;line-height: 20px;&quot;&gt;&lt;div style=&quot;line-height: 20px;&quot;&gt;PC Proxmox → 10.0.10.11&lt;/div&gt;&lt;/div&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="210" width="180" x="675" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="oy7Qhf_uvoBhMOYlaqBT-12" parent="1" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Virtual network list&lt;/h1&gt;&lt;div&gt;&lt;div style=&quot;font-family: &amp;quot;Segoe UI&amp;quot;; font-size: 14px; line-height: 20px;&quot;&gt;&lt;ul&gt;&lt;li&gt;10.0.1.0/24 → DMZ&lt;/li&gt;&lt;li&gt;10.0.2.0/24 → Servers&lt;/li&gt;&lt;li&gt;10.0.3.0/24 → Clients&lt;/li&gt;&lt;li&gt;10.0.10.0/24 → Management&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="240" width="220" x="400" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="oy7Qhf_uvoBhMOYlaqBT-13" parent="1" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Firewall conectivity&lt;/h1&gt;&lt;div style=&quot;font-family: &amp;quot;Segoe UI&amp;quot;; font-size: 14px; line-height: 20px;&quot;&gt;&lt;ul&gt;&lt;li&gt;WAN → 192.168.1.x&amp;nbsp;&lt;/li&gt;&lt;li&gt;LAN → 10.0.2.x&lt;/li&gt;&lt;li&gt;DMZ → 10.0.1.x&lt;/li&gt;&lt;li&gt;OPT → 10.0.3.x&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="170" width="230" x="400" y="440" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>

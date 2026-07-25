@@ -60,7 +60,7 @@ Traffic between security zones is denied by default unless explicitly permitted.
 
 # Network Diagram
 
-> Replace this placeholder with the latest exported draw.io diagram.
+<img width="1912" height="1002" alt="SMB architecture drawio (1)" src="https://github.com/user-attachments/assets/721178db-271c-4553-9a3d-32180d1bf65a" />
 
 ---
 

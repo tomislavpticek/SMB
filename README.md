@@ -1,56 +1,43 @@
 # SMB Homelab
 
-A small enterprise-style homelab built on **Proxmox VE** to practice
-infrastructure administration, networking, virtualization, Linux,
-Windows Server, Active Directory, firewalls, automation, monitoring, and
-secure application deployment.
+A small enterprise-style homelab built on **Proxmox VE** to practice infrastructure administration, networking, virtualization, Linux, Windows Server, Active Directory, firewalls, automation, monitoring, and secure application deployment.
 
-------------------------------------------------------------------------
+---
 
 # Table of Contents
 
--   [Overview](#overview)
--   [Architecture](#architecture)
--   [Network Diagram](#network-diagram)
--   [Security Zones](#security-zones)
--   [Subnets](#subnets)
--   [VM Inventory](#vm-inventory)
--   [Security Rules](#security-rules)
+- [Overview](#overview)
+- [Architecture](#architecture)
+- [Network Diagram](#network-diagram)
+- [Security Zones](#security-zones)
+- [Subnets](#subnets)
+- [VM Inventory](#vm-inventory)
+- [Security Rules](#security-rules)
 
-------------------------------------------------------------------------
+---
 
 # Overview
 
-This project simulates a small business enterprise network following
-common infrastructure and security best practices. The goal is to gain
-practical hands-on experience with enterprise networking,
-virtualization, operating systems, identity management, database
-clustering, monitoring, automation, and secure application hosting.
+This project simulates a secure small business infrastructure following enterprise networking and security best practices.
 
 ## Goals
 
--   Learn Proxmox VE administration
--   Deploy segmented enterprise networks
--   Configure OPNsense firewalls
--   Build secure DMZ and Internal Server networks
--   Deploy Active Directory
--   Configure DNS and DHCP
--   Deploy a highly available PostgreSQL cluster
--   Deploy Redis for application sessions and caching
--   Configure HAProxy load balancing
--   Practice Linux administration
--   Practice Windows Server administration
--   Implement monitoring and backup solutions
--   Learn infrastructure automation
--   Prepare for Infrastructure and Cloud Engineering roles
+- Learn Proxmox VE administration
+- Configure OPNsense firewalls
+- Deploy segmented enterprise networks
+- Practice Linux and Windows Server administration
+- Deploy Active Directory, DNS and DHCP
+- Build a highly available PostgreSQL cluster
+- Deploy Redis for caching and session storage
+- Configure HAProxy load balancing
+- Implement monitoring, backups and automation
+- Prepare for Infrastructure and Cloud Engineering roles
 
-------------------------------------------------------------------------
+---
 
 # Architecture
 
-The environment follows a layered defense model.
-
-``` text
+```text
 Internet
     │
     ▼
@@ -59,6 +46,7 @@ OPNsense Firewall 1 (Edge)
     ▼
 DMZ
     │
+    ▼
 OPNsense Firewall 2 (Internal)
     │
     ├── Internal Server Network
@@ -66,335 +54,242 @@ OPNsense Firewall 2 (Internal)
     └── Management Network
 ```
 
-Traffic between security zones is denied by default unless explicitly
-permitted.
+Traffic between security zones is denied by default unless explicitly permitted.
 
-------------------------------------------------------------------------
+---
 
 # Network Diagram
 
-Replace this placeholder with the latest exported draw.io diagram.
+> Replace this placeholder with the latest exported draw.io diagram.
 
-------------------------------------------------------------------------
+---
 
 # Security Zones
 
-  Zone                      Purpose
-  ------------------------- -------------------------------------------
-  Internet                  External users
-  DMZ                       Public-facing services
-  Internal Server Network   Core infrastructure and business services
-  Workstation Network       Administrative workstation
-  Management Network        Infrastructure management
+| Zone | Purpose |
+|------|---------|
+| Internet | External users |
+| DMZ | Public-facing services |
+| Internal Server Network | Core infrastructure and business services |
+| Workstation Network | Administrative workstation |
+| Management Network | Infrastructure management |
 
-------------------------------------------------------------------------
+---
 
 # Subnets
 
 ## DMZ (10.0.1.0/24)
 
-### Web Tier
+### Services
 
--   Rocky Linux Web Server 1
--   Rocky Linux Web Server 2
+- Rocky Linux OpenVPN Server
+- Alpine HAProxy Load Balancer
+- Rocky Linux Web Server 1
+- Rocky Linux Web Server 2
 
-### Reverse Proxy
-
--   Alpine HAProxy Load Balancer
-
-### Remote Access
-
--   Rocky Linux OpenVPN Server
-
-------------------------------------------------------------------------
+---
 
 ## Internal Server Network (10.0.2.0/24)
 
-### Infrastructure Services
+### Infrastructure
 
--   Rocky Linux Automation Server
--   Rocky Linux Backup Server
--   Rocky Linux Monitoring Server
+- Rocky Linux Automation Server
+- Rocky Linux Backup Server
+- Rocky Linux Monitoring Server
 
-### Identity Services
+### Identity
 
--   Windows Server
-    -   Active Directory
-    -   DNS
-    -   DHCP
+- Windows Server (Active Directory, DNS, DHCP)
 
 ### File Services
 
--   Rocky Linux File Server
+- Rocky Linux File Server
 
 ### Database Services
 
-#### PostgreSQL Cluster
+**PostgreSQL Cluster**
 
--   Alpine PostgreSQL HAProxy Load Balancer
--   Rocky Linux PostgreSQL DB1
--   Rocky Linux PostgreSQL DB2
+- Alpine PostgreSQL HAProxy Load Balancer
+- Rocky Linux PostgreSQL DB1
+- Rocky Linux PostgreSQL DB2
 
-#### Redis
+**Redis**
 
--   Alpine Redis Server
+- Alpine Redis Server
 
-------------------------------------------------------------------------
+---
 
 ## Workstation Network (10.0.3.0/24)
 
-### Administrative Workstation
+- Windows Administrative Workstation
 
--   Windows Workstation
-
-> A Linux workstation may be added in the future.
-
-------------------------------------------------------------------------
+---
 
 ## Management Network (10.0.10.0/24)
 
-### Infrastructure
+- Proxmox
+- OPNsense Firewall 1
+- OPNsense Firewall 2
 
--   Proxmox
--   OPNsense Firewall 1
--   OPNsense Firewall 2
-
-------------------------------------------------------------------------
+---
 
 # VM Inventory
 
-  ------------------------------------------------------------------------------
-  VM            Operating System                Purpose          Network
-  ------------- ------------------------------- ---------------- ---------------
-  Proxmox       Proxmox VE                      Hypervisor       Management
+| VM | Operating System | Purpose | Network |
+| --- | --- | --- | --- |
+| Proxmox | Proxmox VE | Hypervisor | Management |
+| OPNsense Firewall 1 | OPNsense | Edge Firewall | Management |
+| OPNsense Firewall 2 | OPNsense | Internal Firewall | Management |
+| Rocky Linux OpenVPN Server | Rocky Linux | Remote VPN Access | DMZ |
+| Rocky Linux Web Server 1 | Rocky Linux | Public Web Server | DMZ |
+| Rocky Linux Web Server 2 | Rocky Linux | Public Web Server | DMZ |
+| Alpine HAProxy Load Balancer | Alpine Linux | Reverse Proxy / Load Balancer | DMZ |
+| Windows Server | Windows Server | Active Directory, DNS, DHCP | Internal |
+| Rocky Linux File Server | Rocky Linux | SMB File Server | Internal |
+| Rocky Linux Automation Server | Rocky Linux | Infrastructure Automation | Internal |
+| Rocky Linux Backup Server | Rocky Linux | Scheduled Backups | Internal |
+| Rocky Linux Monitoring Server | Rocky Linux | Monitoring and Alerting | Internal |
+| Alpine PostgreSQL HAProxy Load Balancer | Alpine Linux | PostgreSQL Load Balancer | Internal |
+| Rocky Linux PostgreSQL DB1 | Rocky Linux | PostgreSQL Primary | Internal |
+| Rocky Linux PostgreSQL DB2 | Rocky Linux | PostgreSQL Replica | Internal |
+| Alpine Redis Server | Alpine Linux | Cache and Session Store | Internal |
+| Windows Workstation | Windows | Administration | Workstation |
 
-  OPNsense      OPNsense                        Edge Firewall    Management
-  Firewall 1                                                     
-
-  OPNsense      OPNsense                        Internal         Management
-  Firewall 2                                    Firewall         
-
-  Rocky Linux   Rocky Linux                     Remote VPN       DMZ
-  OpenVPN                                       Access           
-  Server                                                         
-
-  Rocky Linux   Rocky Linux                     Public Web       DMZ
-  Web Server 1                                  Server           
-
-  Rocky Linux   Rocky Linux                     Public Web       DMZ
-  Web Server 2                                  Server           
-
-  Alpine        Alpine Linux                    Reverse Proxy /  DMZ
-  HAProxy Load                                  Load Balancer    
-  Balancer                                                       
-
-  Windows       Windows Server                  Active           Internal
-  Server                                        Directory, DNS,  
-                                                DHCP             
-
-  Rocky Linux   Rocky Linux                     SMB File Server  Internal
-  File Server                                                    
-
-  Rocky Linux   Rocky Linux                     Infrastructure   Internal
-  Automation                                    Automation       
-  Server                                                         
-
-  Rocky Linux   Rocky Linux                     Scheduled        Internal
-  Backup Server                                 Backups          
-
-  Rocky Linux   Rocky Linux                     Monitoring and   Internal
-  Monitoring                                    Alerting         
-  Server                                                         
-
-  Alpine        Alpine Linux                    PostgreSQL Load  Internal
-  PostgreSQL                                    Balancer         
-  HAProxy Load                                                   
-  Balancer                                                       
-
-  Rocky Linux   Rocky Linux                     PostgreSQL       Internal
-  PostgreSQL                                    Primary          
-  DB1                                                            
-
-  Rocky Linux   Rocky Linux                     PostgreSQL       Internal
-  PostgreSQL                                    Replica          
-  DB2                                                            
-
-  Alpine Redis  Alpine Linux                    Cache and        Internal
-  Server                                        Session Store    
-
-  Windows       Windows                         Administration   Workstation
-  Workstation                                                    
-  ------------------------------------------------------------------------------
-
-------------------------------------------------------------------------
+---
 
 # Security Rules
 
 ## General Security Policy
 
--   Default deny between all security zones.
--   Only explicitly required ports are permitted.
--   No direct Internet access to internal services.
--   Administrative access is permitted only through the VPN.
--   Least-privilege access is enforced.
--   All Linux servers are patched regularly.
--   All systems synchronize with a common NTP source.
-
-------------------------------------------------------------------------
+- Default deny between all security zones.
+- Only explicitly required ports are permitted.
+- No direct Internet access to internal services.
+- Administrative access is permitted only through the VPN.
+- Least-privilege access is enforced.
+- All Linux servers are patched regularly.
+- All systems synchronize with a common NTP source.
 
 ## Firewall Policy
 
 ### DMZ → Internal
 
-**Default Policy**
-
--   Deny all
+**Default:** Deny all.
 
 **Allowed Exceptions**
 
-  Source        Destination          Protocol
-  ------------- -------------------- ----------
-  Web Servers   PostgreSQL Cluster   TCP 5432
-  Web Servers   Redis Server         TCP 6379
+| Source | Destination | Protocol |
+| --- | --- | --- |
+| Web Servers | PostgreSQL Cluster | TCP 5432 |
+| Web Servers | Redis Server | TCP 6379 |
 
 ### VPN → Internal
 
-**Default Policy**
+**Default:** Deny all.
 
--   Deny all
+| Service | Protocol |
+| --- | --- |
+| DNS | TCP/UDP 53 |
+| Kerberos | TCP/UDP 88 |
+| LDAPS | TCP 636 |
+| Global Catalog | TCP 3269 |
+| SMB | TCP 445 |
 
-**Allowed Services**
-
-  Service          Protocol
-  ---------------- ------------
-  DNS              TCP/UDP 53
-  Kerberos         TCP/UDP 88
-  LDAPS            TCP 636
-  Global Catalog   TCP 3269
-  SMB              TCP 445
-
-VPN users may access only:
-
--   Active Directory
--   DNS
--   SMB File Server
-
-All other services remain inaccessible.
-
-------------------------------------------------------------------------
+VPN users may access only Active Directory, DNS and the SMB File Server.
 
 ## Firewall Matrix
 
-  Source        Destination               Action
-  ------------- ------------------------- ------------------
-  Internet      DMZ                       Allow HTTP/HTTPS
-  Internet      Internal Server Network   Deny
-  Internet      Workstation Network       Deny
-  Internet      Management Network        Deny
-  DMZ           Internal Server Network   Deny by default
-  Web Servers   PostgreSQL Cluster        Allow TCP 5432
-  Web Servers   Redis Server              Allow TCP 6379
-  VPN           Active Directory          Allow
-  VPN           DNS                       Allow
-  VPN           SMB File Server           Allow
-  VPN           PostgreSQL                Deny
-  VPN           Redis                     Deny
-  VPN           Management Network        Deny
-
-------------------------------------------------------------------------
+| Source | Destination | Action |
+| --- | --- | --- |
+| Internet | DMZ | Allow HTTP/HTTPS |
+| Internet | Internal Server Network | Deny |
+| Internet | Workstation Network | Deny |
+| Internet | Management Network | Deny |
+| DMZ | Internal Server Network | Deny by default |
+| Web Servers | PostgreSQL Cluster | Allow TCP 5432 |
+| Web Servers | Redis Server | Allow TCP 6379 |
+| VPN | Active Directory | Allow |
+| VPN | DNS | Allow |
+| VPN | SMB File Server | Allow |
+| VPN | PostgreSQL | Deny |
+| VPN | Redis | Deny |
+| VPN | Management Network | Deny |
 
 ## Web Servers
 
--   Accessible only through the public IP address.
--   Internal users access services through the same public address.
--   Authentication is handled by the application.
--   User sessions are stored in Redis.
--   Web servers may access only PostgreSQL and Redis.
-
-------------------------------------------------------------------------
+- Accessible only through the public IP address.
+- Internal users use the same public address.
+- Authentication is handled by the application.
+- Sessions are stored in Redis.
+- Web servers may access only PostgreSQL and Redis.
 
 ## PostgreSQL Cluster
 
 ### Allowed Clients
 
--   Web Servers
--   Rocky Linux Backup Server
--   Authorized DBA Workstation
+- Web Servers
+- Rocky Linux Backup Server
+- Authorized DBA Workstation
 
 ### Security
 
--   Listen only on the Internal Server Network.
--   SSL enabled.
--   SCRAM-SHA-256 authentication.
--   Administrative access restricted to authorized systems.
-
-------------------------------------------------------------------------
+- Listen only on the Internal Server Network.
+- SSL enabled.
+- SCRAM-SHA-256 authentication.
+- Administrative access restricted to authorized systems.
 
 ## Redis Server
 
 ### Deployment
 
--   Dedicated virtual machine
--   Containerized
--   Persistent storage enabled
--   High-availability ready
+- Dedicated virtual machine
+- Containerized
+- Persistent storage
+- High-availability ready
 
 ### Security
 
--   Listen only on the Internal Server Network.
--   No Internet exposure.
--   Authentication enabled.
--   Accept connections only from the Web Servers.
+- Listen only on the Internal Server Network.
+- Authentication enabled.
+- No Internet exposure.
+- Accept connections only from Web Servers.
 
 ### Purpose
 
--   Session storage
--   Application cache
-
-------------------------------------------------------------------------
+- Session storage
+- Application cache
 
 ## File Server
 
 Users authenticate using Active Directory credentials.
 
-------------------------------------------------------------------------
-
 ## Backup Server
 
 Scheduled backups include:
 
--   PostgreSQL Cluster
--   File Server
+- PostgreSQL Cluster
+- File Server
 
-Backup traffic may originate only from the Backup Server.
-
-------------------------------------------------------------------------
+Only the Backup Server initiates backup traffic.
 
 ## Automation Server
 
 Used for infrastructure automation and configuration management.
 
-------------------------------------------------------------------------
-
 ## Monitoring Server
 
 Provides infrastructure monitoring and alerting.
 
-------------------------------------------------------------------------
-
 ## Management Network
 
-### Members
+Only authorized administrators may access:
 
--   Proxmox
--   OPNsense Firewall 1
--   OPNsense Firewall 2
+- Proxmox
+- OPNsense Firewall 1
+- OPNsense Firewall 2
 
-### Access
+Protocols:
 
-Only authorized administrators may connect using:
-
--   SSH
--   HTTPS
+- SSH
+- HTTPS
 
 The Management Network has no Internet exposure.

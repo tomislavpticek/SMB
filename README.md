@@ -64,7 +64,7 @@ Traffic between every security zone is denied unless explicitly permitted.
 
 # Network Diagram
 
-<img width="7724" height="4088" alt="image" src="https://github.com/user-attachments/assets/aae424a4-b45a-4049-b23a-0b7f53af513c" />
+<img width="1912" height="1002" alt="SMB architecture drawio (1)" src="https://github.com/user-attachments/assets/a5edb56d-d45e-4605-9ad7-571375f6fdeb" />
 
 
 ---
